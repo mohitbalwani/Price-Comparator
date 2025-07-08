@@ -2,7 +2,8 @@
   "name": "universal-price-comparator",
   "version": "1.0.0",
   "description": "Generic tool to fetch product prices from multiple websites",
-  "main": "api/search.js",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",

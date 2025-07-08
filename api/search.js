@@ -1,5 +1,5 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
 const WEBSITES = {
   US: [
@@ -140,7 +140,7 @@ async function scrapeWebsite(site, query) {
   }
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -173,4 +173,4 @@ module.exports = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+}
