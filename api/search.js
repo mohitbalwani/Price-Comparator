@@ -42,7 +42,7 @@ async function scrapeWebsite(site, query) {
       validateStatus: (status) => status < 500
     });
 
-    console.log(`${site.name} response status:`, response.status);
+
     
     const $ = cheerio.load(response.data);
     const results = [];
@@ -72,7 +72,6 @@ async function scrapeWebsite(site, query) {
     } else if (site.name === 'amazon') {
       // Check if we got blocked
       if (response.data.includes('Robot Check') || response.data.includes('captcha')) {
-        console.log('Amazon blocked the request');
         return [];
       }
       
@@ -84,7 +83,7 @@ async function scrapeWebsite(site, query) {
         containers = $('[data-component-type="s-search-result"], .s-result-item').slice(0, 6);
       }
       
-      console.log(`Found ${containers.length} Amazon containers`);
+
       
       containers.each((i, element) => {
         try {
@@ -105,7 +104,7 @@ async function scrapeWebsite(site, query) {
             });
           }
           
-          console.log(`Amazon item ${i}: title="${title}", price="${price}", link="${link}"`);
+
           
           // Clean price and validate
           if (price && title) {
@@ -123,19 +122,19 @@ async function scrapeWebsite(site, query) {
                 productName: title.substring(0, 100),
                 website: site.name
               });
-              console.log(`✅ Added Amazon result: ${title} - $${priceMatch[0]}`);
+
             }
           }
         } catch (err) {
-          console.log('Amazon parsing error:', err.message);
+
         }
       });
     }
 
-    console.log(`${site.name} found ${results.length} results`);
+
     return results;
   } catch (error) {
-    console.log(`${site.name} error:`, error.message);
+
     return [];
   }
 }
